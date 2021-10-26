@@ -24,12 +24,19 @@ module.exports = {
   ],
   settings: {
     'import/resolver': {
-      alias: {
-        map: [['@', path.resolve(__dirname, 'src')]],
-        extensions: ['.ts', '.js', '.jsx', '.json', '.tsx'],
-      },
+      typescript: {},
     },
   },
   rules: {
+    'react/react-in-jsx-scope': 0,
+    'react/prop-types': 0,
+    'import/prefer-default-export': 0,
+    'import/extensions': 0,
+    'react/jsx-filename-extension': [
+      2,
+      { extensions: ['.js', '.jsx', '.ts', '.tsx'] },
+    ],
+    'react/require-default-props': 0,
+    '@typescript-eslint/no-unused-vars': ['error'],
   },
 };
