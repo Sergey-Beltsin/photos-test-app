@@ -1,0 +1,18 @@
+.container {
+  width: 100%;
+}
+
+.content {
+  padding: 10px 15px 20px;
+
+  text-align: center;
+}
+
+.img > img {
+  display: block;
+
+  max-width: 200px;
+  margin: 0 auto;
+
+  border-radius: 16px;
+}

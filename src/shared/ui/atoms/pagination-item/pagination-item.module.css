@@ -1,0 +1,30 @@
+.container {
+  margin-bottom: 4px;
+  padding: 6px 10px;
+
+  background-color: transparent;
+  border: 1px solid var(--primary);
+  border-radius: 4px;
+  cursor: pointer;
+
+  transition: 0.2s ease-in-out;
+}
+
+.container:not(.more):hover {
+  background-color: var(--primary);
+  color: var(--text-white);
+}
+
+.container:not(:last-child) {
+  margin-right: 6px;
+}
+
+.container.selected {
+  background-color: var(--primary);
+  color: var(--text-white);
+}
+
+.container.more {
+  border-color: transparent;
+  cursor: default;
+}
