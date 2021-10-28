@@ -16,6 +16,7 @@ const getPhotosFx = createEffect((): AxiosPromise<Photo[]> | null => {
   try {
     return getAllPhotos();
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.log(error);
 
     return null;
@@ -35,6 +36,7 @@ const handleDeletePhotoFx = createEffect(async (
 
     return currentPhotos;
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.log(error);
 
     return photos;
