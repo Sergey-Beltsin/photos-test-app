@@ -6,8 +6,8 @@ import { Photo as PhotoType } from 'shared/api/photos';
 import { Container, Loading } from 'shared/ui/atoms';
 import { Pagination } from 'shared/ui/molecules';
 import { Modal } from 'shared/ui/atoms/modal';
+import { DeletePhoto } from 'features/delete-photo';
 import styles from './photos.module.css';
-import { DeletePhoto } from '../../features/delete-photo';
 
 export const PhotosPage: FC = () => {
   const paginationItems: number[] = photoModel.store.useAllAlbumIdsStore();
