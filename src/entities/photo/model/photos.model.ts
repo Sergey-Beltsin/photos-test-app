@@ -11,6 +11,7 @@ import { AxiosPromise } from 'axios';
 const handleChangeAlbumId = createEvent<number>();
 const handleChangePhotoModalId = createEvent<number>();
 const handleDeletePhoto = createEvent<number>();
+const handleChangeSorting = createEvent<'up' | 'down'>();
 
 const getPhotosFx = createEffect((): AxiosPromise<Photo[]> | null => {
   try {
@@ -47,6 +48,9 @@ const $photos = createStore<Photo[]>([])
   .on(getPhotosFx.doneData, (_, payload) => (payload ? payload.data : []))
   .on(handleDeletePhotoFx.doneData, (_, photos) => photos);
 
+const $photosSort = createStore<'up' | 'down'>('up')
+  .on(handleChangeSorting, (_, sorting) => sorting);
+
 const $albumId = createStore<number>(1)
   .on(handleChangeAlbumId, (_, albumId) => albumId);
 
@@ -56,7 +60,10 @@ const $photoModalId = createStore<number>(-1)
 const $filteredPhotos = combine(
   $photos,
   $albumId,
-  (photos, albumId) => photos.filter((photo) => photo.albumId === albumId),
+  $photosSort,
+  (photos, albumId, sort) => photos
+    .filter((photo) => photo.albumId === albumId)
+    .sort((a, b) => (sort === 'up' ? a.id - b.id : b.id - a.id)),
 );
 
 const $allAlbumIds = combine(
@@ -88,6 +95,7 @@ const events = {
   handleChangeAlbumId,
   handleChangePhotoModalId,
   handleDeletePhoto,
+  handleChangeSorting,
 };
 const store = {
   $filteredPhotos,

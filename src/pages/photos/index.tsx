@@ -7,6 +7,7 @@ import { Container, Loading } from 'shared/ui/atoms';
 import { Pagination } from 'shared/ui/molecules';
 import { Modal } from 'shared/ui/atoms/modal';
 import { DeletePhoto } from 'features/delete-photo';
+import { SortPhotos } from 'features/sort-photos';
 import styles from './photos.module.css';
 
 export const PhotosPage: FC = () => {
@@ -58,6 +59,7 @@ export const PhotosPage: FC = () => {
           selectedItem={selectedPaginationItem}
           onSubmit={(index) => photoModel.events.handleChangeAlbumId(index)}
         />
+        <SortPhotos />
       </div>
       {isLoading ? <Loading /> : (
         <div className={styles.container}>
