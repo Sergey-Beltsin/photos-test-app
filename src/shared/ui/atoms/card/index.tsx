@@ -5,13 +5,14 @@ import styles from './card.module.css';
 type CardProps = {
   title: string;
   img: string;
+  onClick: () => void;
 }
 
-export const Card: FC<CardProps> = ({ title, img }) => (
+export const Card: FC<CardProps> = ({ title, img, onClick }) => (
   <div className={styles.container}>
-    <div className={styles.img}>
+    <button type="button" className={styles.img} onClick={onClick}>
       <img src={img} alt="" />
-    </div>
+    </button>
     <div className={styles.content}>
       {title}
     </div>

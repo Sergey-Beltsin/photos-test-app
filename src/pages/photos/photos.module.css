@@ -21,6 +21,17 @@
   margin-bottom: 20px;
 }
 
+.modalImg {
+  display: block;
+  align-self: center;
+
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+
+  border-radius: 6px;
+}
+
 @media (min-width: 768px) {
   .container {
     grid-template-columns: repeat(2, 1fr);

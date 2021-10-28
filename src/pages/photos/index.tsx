@@ -1,22 +1,47 @@
 import { FC, useEffect } from 'react';
+import { useList } from 'effector-react';
 
 import { Photo, photoModel } from 'entities/photo';
-
-import { useList } from 'effector-react';
+import { Photo as PhotoType } from 'shared/api/photos';
 import { Container } from 'shared/ui/atoms';
+import { Pagination } from 'shared/ui/molecules';
+import { Modal } from 'shared/ui/atoms/modal';
 import styles from './photos.module.css';
-import { Pagination } from '../../shared/ui/molecules';
 
 export const PhotosPage: FC = () => {
   const paginationItems: number[] = photoModel.store.useAllAlbumIdsStore();
   const selectedPaginationItem: number = photoModel.store.useAlbumIdStore();
+  const photoModalId: number = photoModel.store.usePhotoModalId();
+  const photo: PhotoType | undefined = photoModel.store.usePhoto(photoModalId);
 
   useEffect(() => {
     photoModel.effects.getPhotosFx();
   }, []);
 
-  const photosList = useList(photoModel.store.$filteredPhotos, (photo) => (
-    <Photo title={photo.title} img={photo.url} />
+  const handleChangeModalVisible = (index?: number): void => {
+    const body = document.querySelector('body');
+
+    if (typeof index === 'number' && index >= 0) {
+      photoModel.events.handleChangePhotoModalId(index);
+      if (body) {
+        body.style.overflow = 'hidden';
+      }
+
+      return;
+    }
+
+    photoModel.events.handleChangePhotoModalId(-1);
+    if (body) {
+      body.style.overflow = 'auto';
+    }
+  };
+
+  const photosList = useList(photoModel.store.$filteredPhotos, (photoItem, index) => (
+    <Photo
+      title={photoItem.title}
+      img={photoItem.thumbnailUrl}
+      handleOpenModal={() => handleChangeModalVisible(index)}
+    />
   ));
 
   return (
@@ -28,12 +53,17 @@ export const PhotosPage: FC = () => {
         <Pagination
           items={paginationItems}
           selectedItem={selectedPaginationItem}
-          onSubmit={photoModel.events.handleChangeAlbumId}
+          onSubmit={(index) => photoModel.events.handleChangeAlbumId(index)}
         />
       </div>
       <div className={styles.container}>
         {photosList}
       </div>
+      {photoModalId >= 0 && (
+        <Modal handleClose={handleChangeModalVisible}>
+          <img className={styles.modalImg} src={photo?.url || ''} alt="" />
+        </Modal>
+      )}
     </Container>
   );
 };

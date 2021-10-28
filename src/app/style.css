@@ -3,6 +3,7 @@
 :root {
   --primary: #175326;
   --text-white: #ffffff;
+  --white: #ffffff;
 }
 
 body {
@@ -21,4 +22,5 @@ code {
 
 img {
   width: auto;
+  max-width: 100%;
 }

@@ -4,8 +4,9 @@ import { Card } from 'shared/ui/atoms';
 type PhotoProps = {
   title: string;
   img: string;
+  handleOpenModal: () => void;
 };
 
-export const Photo: FC<PhotoProps> = ({ title, img }) => (
-  <Card title={title} img={img} />
+export const Photo: FC<PhotoProps> = ({ title, img, handleOpenModal }) => (
+  <Card title={title} img={img} onClick={handleOpenModal} />
 );
