@@ -1,0 +1,17 @@
+.container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+
+  transition: 0.1s ease-in-out;
+}
+
+.button:disabled {
+  opacity: 0.3;
+  cursor: default;
+}

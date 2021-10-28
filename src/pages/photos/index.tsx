@@ -3,15 +3,17 @@ import { useList } from 'effector-react';
 
 import { Photo, photoModel } from 'entities/photo';
 import { Photo as PhotoType } from 'shared/api/photos';
-import { Container } from 'shared/ui/atoms';
+import { Container, Loading } from 'shared/ui/atoms';
 import { Pagination } from 'shared/ui/molecules';
 import { Modal } from 'shared/ui/atoms/modal';
 import styles from './photos.module.css';
+import { DeletePhoto } from '../../features/delete-photo';
 
 export const PhotosPage: FC = () => {
   const paginationItems: number[] = photoModel.store.useAllAlbumIdsStore();
   const selectedPaginationItem: number = photoModel.store.useAlbumIdStore();
   const photoModalId: number = photoModel.store.usePhotoModalId();
+  const isLoading: boolean = photoModel.store.useIsPhotosLoadingStore();
   const photo: PhotoType | undefined = photoModel.store.usePhoto(photoModalId);
 
   useEffect(() => {
@@ -41,6 +43,7 @@ export const PhotosPage: FC = () => {
       title={photoItem.title}
       img={photoItem.thumbnailUrl}
       handleOpenModal={() => handleChangeModalVisible(index)}
+      extra={<DeletePhoto id={photoItem.id} />}
     />
   ));
 
@@ -56,9 +59,11 @@ export const PhotosPage: FC = () => {
           onSubmit={(index) => photoModel.events.handleChangeAlbumId(index)}
         />
       </div>
-      <div className={styles.container}>
-        {photosList}
-      </div>
+      {isLoading ? <Loading /> : (
+        <div className={styles.container}>
+          {photosList}
+        </div>
+      )}
       {photoModalId >= 0 && (
         <Modal handleClose={handleChangeModalVisible}>
           <img className={styles.modalImg} src={photo?.url || ''} alt="" />

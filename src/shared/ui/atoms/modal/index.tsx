@@ -23,7 +23,9 @@ export const Modal: FC<ModalProps> = ({ children, handleClose }) => {
           onClick={() => handleClose()}
           aria-label="Close modal"
         />
-        {children}
+        <div className={styles.wrapper}>
+          {children}
+        </div>
       </div>
     </div>
   );

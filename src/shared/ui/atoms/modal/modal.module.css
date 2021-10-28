@@ -25,12 +25,17 @@
   max-width: 800px;
   max-height: calc(100vh - 100px);
   margin: 0 auto;
-  padding: 30px 40px;
 
   background-color: var(--white);
   border-radius: 10px;
-  overflow: auto;
   cursor: default;
+}
+
+.wrapper {
+  width: 100%;
+  padding: 30px 40px;
+
+  overflow: auto;
 }
 
 .close {

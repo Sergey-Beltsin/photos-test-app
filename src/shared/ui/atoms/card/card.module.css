@@ -11,11 +11,32 @@
 .img {
   display: block;
 
+  position: relative;
+
   margin: 0 auto;
+  padding: 0;
 
   background-color: transparent;
   border: none;
   cursor: pointer;
+}
+
+.img::after {
+  content: '';
+
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  border-radius: 16px;
+
+  transition: 0.15s ease-in-out;
+}
+
+.img:hover::after {
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 .img > img {

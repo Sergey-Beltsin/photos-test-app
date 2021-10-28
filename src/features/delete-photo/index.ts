@@ -1,0 +1,1 @@
+export { DeletePhoto } from './ui';
